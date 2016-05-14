@@ -287,10 +287,10 @@ public class PostgresConnector {
 					}
 					prepStmt1.setInt(1, image_id);
 					prepStmt1.execute();
-					connection.commit();
+					//connection.commit();
 					connection.close();
 				}catch(SQLException e){
-					System.out.println("makeContentPage "+e);
+					System.out.println("PostgresConnector.SetUserImg "+e);
 				}
 				return image_id;
 	}

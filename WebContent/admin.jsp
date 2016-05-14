@@ -20,10 +20,15 @@
 			<a href="Account">Account</a> <img src="images/icons/user-ffffff.png" width="30" height="26" /><br /><br />
 			<a href="#">Members</a> <img src="images/icons/members-ffffff.png" width="30" height="26" /><br /><br />
 			<a href="#">Ratings</a> <img src="images/icons/ratings-ffffff.png" width="30" height="27" /><br /><br />
+			<a href="DashboardC">Contractor Dashboard</a> <img src="images/icons/dashboard-ffffff.png" width="30" height="25" /><br /><br />
+			<a href="#">Employer Dashboard</a>  <img src="images/icons/dashboard-ffffff.png" width="30" height="25" /><br /><br />
+		
 		<br /><br />
 		</td>
 		<td class="theading" width="80"  >
 		<img src="images/dro-logo-dedede.png" width="130" height="65" />
+		<br /><br />
+		
 		</td>
 	</tr>
 </table>

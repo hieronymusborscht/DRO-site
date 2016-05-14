@@ -21,7 +21,7 @@ jto.UploadedImage upimg = (jto.UploadedImage)session.getAttribute("uploadedimg")
 	size: <%=upimg.getSizeKiloBytes()%> Kb 
 </td>
 <td>
-<img style="float:right;" src="images/icons/royalty-dedede.png" width="130" height="65" />
+<img style="float:right;" src="images/dro-logo-dedede.png" width="130" height="65" />
 </td>	
 	</tr><tr>
 <td >

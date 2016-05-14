@@ -312,8 +312,11 @@ public class PostgresConnector {
 			sb.append(", t_width, type FROM images");
 			if(image_id>0){
 				sb.append(" WHERE id=?");
+			}else if(image_id<1){
+				sb.append(" order by id desc");
 			}
 			sb.append(" limit 1");
+			System.out.println(sb.toString());
 			prepStmt = connection.prepareStatement(sb.toString());	
 			if(image_id>0){
 				prepStmt.setInt(1, image_id);

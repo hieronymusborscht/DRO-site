@@ -95,51 +95,6 @@ public class NewUser extends Member{
 	//public String
 	
 
-	public boolean tryLogin(){
-		//System.out.println("trylogin");
-		boolean is = false;
-		if(email==null || email.length()==0){ 
-			//System.out.println("fail on email");
-			return is;	
-		}
-		if(pass==null || pass.length()==0){
-		//if(pass_a_hash==null || pass_a_hash.length()==0){ 
-			//System.out.println("fail on pass");
-			return is;
-		}
-		try{
-			java.sql.Connection connection = jto.obj.PostgresConnector.getConnection();
-			PreparedStatement prepStmt = connection.prepareStatement("select id, first_name, last_name, email,phone, role,  description,  pass_hash, img_id from users where email=?");
-			prepStmt.setString(1, email);
-			//System.out.println("this line reached 111-a");
-			ResultSet rs = prepStmt.executeQuery();
-			while(rs.next()){
-				System.out.println("found record");
-				setFirst_name(rs.getString("first_name"));
-				setLast_name(rs.getString("last_name"));
-				setImg_id(rs.getInt("img_id"));
-				if(pass!=null){
-					setLogged_in(jto.util.PasswordHash.validatePassword(pass, rs.getString("pass_hash")));
-				}
-				setEmail(rs.getString("email"));
-				setPhone(rs.getString("phone"));
-				setId(rs.getInt("id"));
-				setAcct_type(rs.getString("role")); 
-				//setAreas_serviced(rs.getString("areas_serviced")); 
-				setDescription(rs.getString("description")); 
-				//rs.getString("salesforce_id");
-				
-			}
-		}catch(SQLException e){
-			is=false;
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (InvalidKeySpecException e) {
-			e.printStackTrace();
-		}
-		return is;
-	}
 	
 	public void LogOut(){
 		setLogged_in(false);
@@ -160,30 +115,38 @@ public class NewUser extends Member{
 		System.out.print("description==null ");System.out.println(description==null);
 			
 		if(first_name!=null && last_name!=null && email!=null && acct_type!=null && description!=null && phone!=null && id>0 ){
-			try{
-				System.out.println("this line reached BBB");
-				String s = "update users set first_name=?, last_name=?, email=?,phone=?, role=?, description=? where id=?";		
-				java.sql.Connection connection = jto.obj.PostgresConnector.getConnection();
-				PreparedStatement prepStmt = connection.prepareStatement(s);
-				prepStmt.setString(1, first_name);
-				prepStmt.setString(2, last_name); 
-				prepStmt.setString(3, email);
-				prepStmt.setString(4, phone);
-				prepStmt.setString(5, acct_type);
-				prepStmt.setString(6, description); 
-				prepStmt.setInt(7, id);
+			//stry{
 				
-				prepStmt.execute();
+				//String s = "update users set first_name=?, last_name=?, email=?,phone=?, role=?, description=? where id=?";		
+				//java.sql.Connection connection = jto.obj.PostgresConnector.getConnection();
 				
-				connection.close();
-			}catch(SQLException e){
-				System.out.println(e);
-			}
+				jto.obj.PostgresConnector.updateUser(this);
+				
+				//PreparedStatement prepStmt = connection.prepareStatement(s);
+				//prepStmt.setString(1, first_name);
+				//prepStmt.setString(2, last_name); 
+				//prepStmt.setString(3, email);
+				//prepStmt.setString(4, phone);
+				//prepStmt.setString(5, acct_type);
+				//prepStmt.setString(6, description); 
+				//prepStmt.setInt(7, id);
+				
+				//prepStmt.execute();
+				
+				//connection.close();
+			//}catch(SQLException e){	System.out.println(e);}
 		}  // stuff was null
 	}
 	
 	
-	
+	public boolean changePassword(String old_pass, String new_pass){
+		boolean is = false;
+		
+		
+		
+		
+		return is;
+	}
 
 
 

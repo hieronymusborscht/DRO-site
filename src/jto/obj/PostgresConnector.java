@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -337,4 +339,68 @@ public class PostgresConnector {
 		}
 		return ul;
 	}
+	
+	
+	public static void updateUser(jto.usr.NewUser user){
+		
+		try{
+			
+			String s = "update users set first_name=?, last_name=?, email=?,phone=?, role=?, description=? where id=?";		
+			java.sql.Connection connection = jto.obj.PostgresConnector.getConnection();
+			
+			
+			
+			PreparedStatement prepStmt = connection.prepareStatement(s);
+			prepStmt.setString(1, user.getFirst_name());
+			prepStmt.setString(2, user.getLast_name()); 
+			prepStmt.setString(3, user.getEmail());
+			prepStmt.setString(4, user.getPhone());
+			prepStmt.setString(5, user.getAcct_type());
+			prepStmt.setString(6, user.getDescription()); 
+			prepStmt.setInt(7, user.getId());
+			
+			prepStmt.execute();
+			
+			connection.close();
+		}catch(SQLException e){
+			System.out.println(e);
+		}
+	}
+	
+	
+	public static jto.usr.NewUser tryLogin(String email, String pass){
+		jto.usr.NewUser user = new jto.usr.NewUser();
+		
+		try{
+			connection = getConnection();
+	
+			PreparedStatement prepStmt = connection.prepareStatement("select id, first_name, last_name, email,phone, role,  description,  pass_hash, img_id from users where email=?");
+			prepStmt.setString(1, email);
+			ResultSet rs = prepStmt.executeQuery();
+			while(rs.next()){
+				//System.out.println("record found");
+				user.setFirst_name(rs.getString("first_name"));
+				user.setLast_name(rs.getString("last_name"));
+				user.setImg_id(rs.getInt("img_id"));
+				if(pass!=null){
+					user.setLogged_in(jto.util.PasswordHash.validatePassword(pass, rs.getString("pass_hash")));
+				}
+				user.setEmail(rs.getString("email"));
+				user.setPhone(rs.getString("phone"));
+				user.setId(rs.getInt("id"));
+				user.setAcct_type(rs.getString("role")); 			
+				user.setDescription(rs.getString("description")); 
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (InvalidKeySpecException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
+	
 }

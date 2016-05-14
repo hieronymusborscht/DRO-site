@@ -26,8 +26,24 @@ public class ChangePass extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		jto.usr.NewUser the_user = (jto.usr.NewUser)request.getSession().getAttribute("userbean");
+		if(the_user==null){the_user = new jto.usr.NewUser(); }
+		boolean success = false;
+		//old_pass
+		//new_pass_a
+		
+		if( (request.getParameter("new_pass_a")!=null) && (request.getParameter("new_pass_a").length()>0 )){
+			if( (request.getParameter("old_pass")!=null) && (request.getParameter("old_pass").length()>0 )){
+				success = the_user.changePassword(request.getParameter("new_pass_a"),request.getParameter("new_pass_a"));
+			}
+		}
+		
+		//new_pass_b
+		
+		
+		
+		request.getSession().setAttribute("userbean", the_user);
+		request.getRequestDispatcher("change_pass.jsp").forward(request, response);
 	}
 
 	/**

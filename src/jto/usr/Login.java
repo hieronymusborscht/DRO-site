@@ -36,13 +36,11 @@ public class Login extends HttpServlet {
 		}
 		
 		if( (request.getParameter("email")!=null) && (request.getParameter("email").length()>0 )){
-			the_user.setEmail(request.getParameter("email"));
-		}
-		if( (request.getParameter("password")!=null) && (request.getParameter("password").length()>0 )){
-			the_user.setPass(request.getParameter("password"));
-		}
-		if( (request.getParameter("login")!=null) && (request.getParameter("login").length()>0 )){
-			the_user.tryLogin();
+			if( (request.getParameter("password")!=null) && (request.getParameter("password").length()>0 )){
+				if( (request.getParameter("login")!=null) && (request.getParameter("login").length()>0 )){
+					the_user = jto.obj.PostgresConnector.tryLogin(request.getParameter("email"), request.getParameter("password"));
+				}
+			}
 		}
 		
 		request.getSession().setAttribute("userbean", the_user);

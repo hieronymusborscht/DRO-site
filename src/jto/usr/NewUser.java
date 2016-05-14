@@ -1,10 +1,11 @@
 package jto.usr;
 
-import java.security.NoSuchAlgorithmException;
 
-import java.security.spec.InvalidKeySpecException;
+
+
+
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,74 +24,15 @@ public class NewUser extends Member{
 	}
 	
 	
-	
-	public String getAreasTranslatorRegex(){
-		StringBuffer sb = new StringBuffer();
-		Iterator<Entry<String, String>> it = areas_map.entrySet().iterator();
-		sb.append("function replace_area(str){\n");
-		while (it.hasNext()) {
-			HashMap.Entry<String, String> pair = (HashMap.Entry<String, String>)it.next();			
-			sb.append("	str= str.replace(/");
-			sb.append(pair.getValue());
-			sb.append("/,\"");//VCQ
-			sb.append(pair.getKey());
-			sb.append("\"); \n");
-		}
-		sb.append(" return str.trim(); \n}");
-		return sb.toString();
-	}
+
 	
 	
-	
-	public String getAreas_map_pairs(){
-		
-		StringBuffer sb = new StringBuffer();
-		if(areas_map!=null && areas_map.size()>0){
-			Iterator<Entry<String, String>> it = areas_map.entrySet().iterator();
-			while (it.hasNext()) {
-				HashMap.Entry<String, String> pair = (HashMap.Entry<String, String>)it.next();
-				sb.append("<tr>\n<td><input type=\"checkbox\" ");
-				sb.append(" name=\"area\" value=\""); 
-				sb.append(pair.getKey());  // pair.getValue()
-				sb.append("\"");
-				if(areas_serviced!=null && areas_serviced.length>0){
-					for(int j =0; j<areas_serviced.length; j++){
-						if(areas_serviced[j].trim().equals(pair.getKey())){
-							sb.append(" checked=\"checked\""); 
-						}	}
-				}
-				sb.append(" onchange=\"checkboxes()\" /><label>"); //downtown
-				sb.append(pair.getKey());
-				sb.append("</label></td>\n</tr>\n");
-			}
-		}
-		return sb.toString();
-	}
+
 		
 	
 	
 	
-	public String getAreas_map(){
-		java.util.AbstractSet<String> aset = (java.util.AbstractSet<String>)areas_map.keySet();
-		String[] sarr= aset.toArray(new String[aset.size()]);
-		StringBuffer sb = new StringBuffer();
-		
-		for(int i=0; i<sarr.length; i++){
-			sb.append("<tr><td><input type=\"checkbox\" ");
-			sb.append(" name=\"area\" value=\""); //downtown
-			sb.append(sarr[i]);
-			sb.append("\""); 
-			//for(int j =0; j<areas_serviced.length; j++){
-				//if(areas_serviced[j].trim().equals(sarr[i].trim())){
-				//	sb.append(" checked=\"checked\""); 
-				//}
-			//}
-			sb.append(" onchange=\"checkboxes()\" /><label>"); //downtown
-			sb.append(sarr[i]);
-			sb.append("</label></td></tr>\n");
-		}
-		return sb.toString();
-	}
+
 		
 	//public String
 	
@@ -98,6 +40,7 @@ public class NewUser extends Member{
 	
 	public void LogOut(){
 		setLogged_in(false);
+		setId(0);
 		setEmail("");
 		setFirst_name("");
 		setLast_name("");
@@ -105,7 +48,6 @@ public class NewUser extends Member{
 	}
 	public void updateUser(){
 		
-	
 		
 		System.out.print("first_name==null "); System.out.println(first_name==null);
 		System.out.print("last_name==null ");System.out.println(last_name==null);
@@ -141,8 +83,8 @@ public class NewUser extends Member{
 	
 	public boolean changePassword(String old_pass, String new_pass){
 		boolean is = false;
-		
-		jto.obj.PostgresConnector.updatePassword(getEmail(), old_pass,  new_pass);
+		setPass_a(new_pass);
+		is = jto.obj.PostgresConnector.updatePassword(getEmail(), old_pass,  getPass_a_hash());
 		
 		
 		return is;

@@ -318,7 +318,7 @@ public class PostgresConnector {
 				sb.append(" order by id desc");
 			}
 			sb.append(" limit 1");
-			System.out.println(sb.toString());
+			//System.out.println(sb.toString());
 			prepStmt = connection.prepareStatement(sb.toString());	
 			if(image_id>0){
 				prepStmt.setInt(1, image_id);
@@ -402,27 +402,31 @@ public class PostgresConnector {
 		return user;
 	}
 	
-	public static boolean updatePassword(String email, String old_pass, String new_pass){
-		
+	public static boolean updatePassword(String email, String old_pass, String new_pass_hash){
 		boolean is_true = false;
 		try{
 			connection = getConnection();
-	
 			PreparedStatement prepStmt = connection.prepareStatement("select id, first_name, last_name, email,phone, role,  description,  pass_hash, img_id from users where email=?");
 			prepStmt.setString(1, email);
 			ResultSet rs = prepStmt.executeQuery();
 			while(rs.next()){
-		
 				if(old_pass!=null){
 					is_true = jto.util.PasswordHash.validatePassword(old_pass, rs.getString("pass_hash"));
+					//System.out.println("A is_true"+is_true);
 				}
-		
 			}
 			if(is_true){
-				
-				System.out.println("Okay, the password matched, now we can do the update" );
+				//System.out.println("B is_true"+is_true);
+				prepStmt = connection.prepareStatement("update users set pass_hash=? where email=?");
+				prepStmt.setString(1, new_pass_hash);
+				prepStmt.setString(2, email);
+				prepStmt.execute();
+				//System.out.println("C is_true"+is_true);
+				//System.out.println("password update statement result ["+is_true+"]");
+				//System.out.println("update users set pass_hash=? where email=?");
+				//System.out.println(new_pass_hash);
+				//System.out.println(email);
 			}
-			
 		}catch(SQLException e){
 			e.printStackTrace();
 		} catch (NoSuchAlgorithmException e) {
@@ -430,6 +434,7 @@ public class PostgresConnector {
 		} catch (InvalidKeySpecException e) {
 			e.printStackTrace();
 		}
+		//System.out.println("about to return is_true"+is_true);
 		return is_true;
 	}
 	

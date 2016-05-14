@@ -65,34 +65,14 @@ public class Member {
 			pass_a_hash = jto.util.PasswordHash.createHash(s);
 		}catch(Exception e){e.printStackTrace();}
 	}
-	public String getAreas_serviced(){ 
-	java.lang.StringBuffer sb = new java.lang.StringBuffer();
-		if(areas_serviced!=null && areas_serviced.length>0){
-			for(int i=0; i<areas_serviced.length; i++){
-				sb.append(areas_serviced[i].trim());
-				if(i<areas_serviced.length-1){
-					sb.append(", ");
-				}
-			}
-		}
-		return sb.toString();
-	}
+
 	
-	public void setAreas_serviced(String s){
-		if(s!=null && s.length()>0){
-		areas_serviced=s.split(",");
-		}
-	}
-	public void setAreas_serviced_arr(String[] arr){
-		areas_serviced=arr;
-	}
+
 	
 	public void setDescription(String s){
 		description = s;
 	}
-	public void  setSalesforce_id(String s){
-		salesforce_id=s;
-	}
+
 
 	public void resetMessage(){
 		message= new StringBuffer();

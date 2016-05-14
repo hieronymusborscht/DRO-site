@@ -29,21 +29,26 @@ public class ChangePass extends HttpServlet {
 		jto.usr.NewUser the_user = (jto.usr.NewUser)request.getSession().getAttribute("userbean");
 		if(the_user==null){the_user = new jto.usr.NewUser(); }
 		boolean success = false;
-		//old_pass
-		//new_pass_a
+
 		
 		if( (request.getParameter("new_pass_a")!=null) && (request.getParameter("new_pass_a").length()>0 )){
-			if( (request.getParameter("old_pass")!=null) && (request.getParameter("old_pass").length()>0 )){
-				success = the_user.changePassword(request.getParameter("new_pass_a"),request.getParameter("new_pass_a"));
+			if( (request.getParameter("old_pass")!=null) && (request.getParameter("old_pass").length()>0 )){			
+				success = the_user.changePassword(request.getParameter("old_pass"),request.getParameter("new_pass_a"));
 			}
 		}
 		
-		//new_pass_b
-		
-		
+	
 		
 		request.getSession().setAttribute("userbean", the_user);
-		request.getRequestDispatcher("change_pass.jsp").forward(request, response);
+		if(the_user.isLogged_in()){
+			if(success){
+				request.getRequestDispatcher("Account").forward(request, response);
+			}else if(!success){
+				request.getRequestDispatcher("change_pass.jsp").forward(request, response);
+			}
+		}else if(!the_user.isLogged_in()){
+			request.getRequestDispatcher("Login").forward(request, response);
+		}
 	}
 
 	/**

@@ -56,18 +56,7 @@ public class Account extends HttpServlet {
 			the_user.setDescription(request.getParameter("description"));
 		}
 		
-		if( (request.getParameter("area")!=null) && (request.getParameter("area").length()>0)){
-			String[] results = request.getParameterValues("area");
-			//StringBuffer areas= new StringBuffer();
-			//for (int i = 0; i < results.length; i++) {
-			//	areas.append(results[i]); 
-			//	if(i< results.length-1){
-			//		areas.append(",");
-			//	}
-			//}
-			do_update=true;
-			the_user.setAreas_serviced_arr(results);
-		}
+
 		
 		
 		if(do_update){

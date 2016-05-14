@@ -142,7 +142,7 @@ public class NewUser extends Member{
 	public boolean changePassword(String old_pass, String new_pass){
 		boolean is = false;
 		
-		
+		jto.obj.PostgresConnector.updatePassword(getEmail(), old_pass,  new_pass);
 		
 		
 		return is;

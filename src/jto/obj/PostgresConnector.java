@@ -402,5 +402,38 @@ public class PostgresConnector {
 		return user;
 	}
 	
+	public static boolean updatePassword(String email, String old_pass, String new_pass){
+		
+		boolean is_true = false;
+		try{
+			connection = getConnection();
+	
+			PreparedStatement prepStmt = connection.prepareStatement("select id, first_name, last_name, email,phone, role,  description,  pass_hash, img_id from users where email=?");
+			prepStmt.setString(1, email);
+			ResultSet rs = prepStmt.executeQuery();
+			while(rs.next()){
+		
+				if(old_pass!=null){
+					is_true = jto.util.PasswordHash.validatePassword(old_pass, rs.getString("pass_hash"));
+				}
+		
+			}
+			if(is_true){
+				
+				System.out.println("Okay, the password matched, now we can do the update" );
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (InvalidKeySpecException e) {
+			e.printStackTrace();
+		}
+		return is_true;
+	}
+	
+	
+	
 	
 }

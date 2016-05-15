@@ -6,10 +6,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Admin</title>
+<title>My Job Posting</title>
 <link rel="stylesheet" type="text/css" href="admin_style.css">
 </head>
 <body>
+Your Job Postings<br /><br />
+<a href="NewJobPosting">new job posting</a>
 <table>
 <tr>
 		<td >

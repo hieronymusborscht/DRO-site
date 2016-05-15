@@ -172,7 +172,9 @@ public class JobPosting {
 	
 	public boolean createJobPosting(){
 		boolean is = false;
-		
+		if(readyToCreate()){
+			is = jto.obj.PostgresConnector.createJobPosting(this);
+		}
 		return is;
 	}
 	

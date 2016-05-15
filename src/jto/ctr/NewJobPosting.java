@@ -1,4 +1,4 @@
-package jto.inf;
+package jto.ctr;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,18 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class JobPostings
+ * Servlet implementation class NewJobPosting
  */
-@WebServlet("/JobPostings")
-public class JobPostings extends HttpServlet {
+@WebServlet("/NewJobPosting")
+public class NewJobPosting extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JobPostings() {
+    public NewJobPosting() {
         super();
-     
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -29,11 +29,13 @@ public class JobPostings extends HttpServlet {
 		jto.usr.NewUser the_user = (jto.usr.NewUser)request.getSession().getAttribute("userbean");
 		if(the_user==null){the_user = new jto.usr.NewUser(); }
 		
+		jto.ctr.JobPostingState job_posting_state = (jto.ctr.JobPostingState)request.getSession().getAttribute("poting_state");
+		if(job_posting_state==null){job_posting_state = new jto.ctr.JobPostingState(); }
 		
 		
 		request.getSession().setAttribute("userbean", the_user);
 		if(the_user.isLogged_in()){
-			request.getRequestDispatcher("employer_job_posting.jsp").forward(request, response);
+			request.getRequestDispatcher("new_job_posting.jsp").forward(request, response);
 		}else{
 			request.getRequestDispatcher("Login").forward(request, response);
 		}

@@ -18,7 +18,6 @@ import java.sql.Statement;
 import jto.UploadedImage;
 import jto.util.TableSetupUtil;
 
-
 public class PostgresConnector {
 	
 	private static java.sql.Connection connection;
@@ -33,7 +32,6 @@ public class PostgresConnector {
 		}	
 		return connection;
 	}
-	
 	
 	public static boolean createJobPosting(jto.ent.JobPosting jp){
 		boolean is = false;
@@ -68,18 +66,7 @@ public class PostgresConnector {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
 	/*
 	
 	public static java.util.ArrayList<jto.usr.Member> loadMembers(){

@@ -28,9 +28,9 @@ public class Member {
 	
 	
 	public String getAcct_type() {return acct_type; }
-	private String getAcct_type_opt(){
+	/*private String getAcct_type_opt(){
 		return "<option value=\"+acct_type+\" selected=\"selected\" >"+acct_type+"</option>";	
-	}
+	}*/
 	
 	public void setVisible(boolean t){
 		visible=t;
@@ -41,9 +41,7 @@ public class Member {
 	public void setAcct_type(String s) {
 		acct_type = s;
 	}
-	public void setLogged_in(boolean logged_in) {
-		this.logged_in = logged_in;
-	}
+
 	public void setFirst_name(String s) {
 		first_name = s;
 	}

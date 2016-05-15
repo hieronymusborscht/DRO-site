@@ -9,34 +9,20 @@ jto.usr.NewUser the_user = (jto.usr.NewUser)request.getSession().getAttribute("u
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="admin_style.css">
-<title>Login</title>
+<title>Reset Password</title>
 </head>
 <body>
-
-
-<form method="post" action="Login">
+<form method="post" action="ResetPassword">
 <table>
 <tr>
-<td colspan="2">Login</td>
+<td colspan="2">Reset Password &nbsp; <%=the_user.getPass() %></td>
 </tr>
 <tr>
 <td>email address</td><td><input type="text" id="email" name="email" value="john@johntheother.com" /></td>
 </tr>
 <tr>
-<!-- Albrecht99 -->
-<td>password</td><td><input type="password" id="password" name="password" value="Albrecht99" /></td>
+<td>&nbsp;</td><td><input type="submit" id="update" name="update" value="reset" /></td>
 </tr>
-<tr>
-<td><a href="Signup">new account</a></td><td><input type="submit" id="login" name="login" value="login" /></td>
-</tr>
-<%
-if(the_user.getFailed_login()){
-	out.println("<tr><td colspan=\"2\"><a href=\"ResetPassword\">lost password?</a></td></tr>");
-}
-
-
-%>
-
 </table>
 </form>
 </body>

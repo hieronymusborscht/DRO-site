@@ -5,30 +5,53 @@ package jto.usr;
 
 
 import java.sql.PreparedStatement;
-
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
+
 
 public class NewUser extends Member{
 
-	private String pass;
-	private String pass_hash;
+	//private String pass;
+	//private String pass_hash;
+	private boolean failed_login;
 	
 	/** public constructor */
 	public NewUser(){
 		setId(0);
 		setLogged_in(false);
-
+		failed_login=false;
+	}
+	public void setLogged_in(boolean logged_in) {
+		this.logged_in = logged_in;
+		if(!logged_in){
+			failed_login=true;
+		}
 	}
 	
+	public boolean getFailed_login(){
+		return failed_login;
+	}
+	public void setFailed_login(boolean is_true){
+		failed_login = is_true;
+	}
 	
 
-	
-	
-
-		
+	public String getAcctTypeOptions(){
+		String[] acct_types = {"basic","Employer","Contractor"};
+		StringBuilder sb = new StringBuilder();
+		for(int i=0; i<acct_types.length; i++){
+			sb.append("<option ");
+			sb.append(" value=\"");
+			sb.append(acct_types[i]);
+			sb.append("\" ");
+			if(acct_type.equals(acct_types[i])){
+				sb.append(" selected=\"selected\" ");
+			}
+			sb.append(">");
+			sb.append(acct_types[i]);
+			sb.append("</option>\n");
+		}
+		return sb.toString();
+	}
 	
 	
 	
@@ -84,12 +107,24 @@ public class NewUser extends Member{
 	public boolean changePassword(String old_pass, String new_pass){
 		boolean is = false;
 		setPass_a(new_pass);
-		is = jto.obj.PostgresConnector.updatePassword(getEmail(), old_pass,  getPass_a_hash());
+		is = jto.obj.PostgresConnector.updatePassword(getEmail(), old_pass,  getPass_a_hash());	
+		return is;
+	}
+	public boolean resetPassword(String email){
+		boolean is = false;
+		
+		System.out.println("resetPassword called");
+		setPass_a(jto.util.RandomThing.getString(8));
+		is = jto.obj.PostgresConnector.resetPassword(getEmail(),  getPass_a_hash());
 		
 		
 		return is;
 	}
-
+	
+	
+	
+	
+	
 
 
 	public boolean createNewUser(){
@@ -134,9 +169,15 @@ public class NewUser extends Member{
 		return is;
 	}
 	public void setPass(String s ){
-		pass=s;
+		pass_a=s;
 	}
-	
+	public String getPass(){
+		String s = "";
+		if(pass_a!=null){
+			s=pass_a;
+		}
+		return s +"&nbsp;<a href=\"Login\">return to login</a>";
+	}
 
 	public boolean isLogged_in() {
 		return logged_in;

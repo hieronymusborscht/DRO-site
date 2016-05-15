@@ -21,16 +21,10 @@ import jto.util.TableSetupUtil;
 
 public class PostgresConnector {
 	
-	
 	private static java.sql.Connection connection;
-	
-
 	private static PostgresConnector pgc = new PostgresConnector( );
-	
 	private PostgresConnector(){ }
-	
 	public static PostgresConnector getInstance( ) {      return pgc;}
-	
 	public static java.sql.Connection getConnection(){ 
 		try {
 			if(connection==null || connection.isClosed()){ connection=init();}
@@ -38,6 +32,39 @@ public class PostgresConnector {
 			e.printStackTrace();
 		}	
 		return connection;
+	}
+	
+	
+	public static boolean createJobPosting(jto.ent.JobPosting jp){
+		boolean is = false;
+		try{
+			StringBuilder sb = new StringBuilder();
+		
+			sb.append("insert into Job_posting ");
+			sb.append("(work_type_id,work_type,estimated_cost,date_posted,special_equipment,how_many_positions,user_id,ep_id,visible)");
+			sb.append("values");
+			sb.append("(?,?,?,?,?,?,?,?,?)");
+			connection = getConnection();
+			PreparedStatement prepStmt = connection.prepareStatement(sb.toString());
+
+			prepStmt.setInt(1,jp.getWork_type_id());
+			prepStmt.setString(2,jp.getWork_type());
+			prepStmt.setFloat(3, jp.getEstimated_cost());
+			prepStmt.setString(4,"now()");
+			prepStmt.setString(5,jp.getSpecial_equipment());
+			prepStmt.setInt(6,jp.getHow_many_positions());
+			prepStmt.setInt(7,jp.getUser_id());
+			prepStmt.setInt(8,jp.getEp_id());
+			prepStmt.setBoolean(9,false);
+			
+			prepStmt.execute();
+			connection.close();
+			is=true;
+		}catch(SQLException e){
+			is = false;
+			System.out.println("makeContentPage "+e);
+		}
+		return is;
 	}
 	
 	
@@ -378,12 +405,14 @@ public class PostgresConnector {
 			prepStmt.setString(1, email);
 			ResultSet rs = prepStmt.executeQuery();
 			while(rs.next()){
-				//System.out.println("record found");
+				user.setFailed_login(true);
+				System.out.println("record found");
 				user.setFirst_name(rs.getString("first_name"));
 				user.setLast_name(rs.getString("last_name"));
 				user.setImg_id(rs.getInt("img_id"));
 				if(pass!=null){
 					user.setLogged_in(jto.util.PasswordHash.validatePassword(pass, rs.getString("pass_hash")));
+					//user.setFailed_login(false);
 				}
 				user.setEmail(rs.getString("email"));
 				user.setPhone(rs.getString("phone"));
@@ -401,6 +430,29 @@ public class PostgresConnector {
 		}
 		return user;
 	}
+	
+	public static boolean resetPassword(String email,  String new_pass_hash){
+	boolean is = false;
+		try{
+			connection = getConnection();
+		
+			PreparedStatement prepStmt = connection.prepareStatement("update users set pass_hash=? where email=?");
+			prepStmt.setString(1, new_pass_hash);
+			prepStmt.setString(2, email);
+			prepStmt.execute();
+			connection.close();
+			is=true;
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+			is=false;
+		} 
+	return is;
+	}
+	
+	
+	
+	
 	
 	public static boolean updatePassword(String email, String old_pass, String new_pass_hash){
 		boolean is_true = false;
@@ -421,11 +473,7 @@ public class PostgresConnector {
 				prepStmt.setString(1, new_pass_hash);
 				prepStmt.setString(2, email);
 				prepStmt.execute();
-				//System.out.println("C is_true"+is_true);
-				//System.out.println("password update statement result ["+is_true+"]");
-				//System.out.println("update users set pass_hash=? where email=?");
-				//System.out.println(new_pass_hash);
-				//System.out.println(email);
+			
 			}
 		}catch(SQLException e){
 			e.printStackTrace();

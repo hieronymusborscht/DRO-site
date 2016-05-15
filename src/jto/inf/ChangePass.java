@@ -19,7 +19,6 @@ public class ChangePass extends HttpServlet {
      */
     public ChangePass() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -30,15 +29,12 @@ public class ChangePass extends HttpServlet {
 		if(the_user==null){the_user = new jto.usr.NewUser(); }
 		boolean success = false;
 
-		
 		if( (request.getParameter("new_pass_a")!=null) && (request.getParameter("new_pass_a").length()>0 )){
 			if( (request.getParameter("old_pass")!=null) && (request.getParameter("old_pass").length()>0 )){			
 				success = the_user.changePassword(request.getParameter("old_pass"),request.getParameter("new_pass_a"));
 			}
 		}
-		
-	
-		
+				
 		request.getSession().setAttribute("userbean", the_user);
 		if(the_user.isLogged_in()){
 			if(success){
@@ -58,5 +54,4 @@ public class ChangePass extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

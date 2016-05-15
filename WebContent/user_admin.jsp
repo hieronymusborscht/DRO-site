@@ -104,7 +104,17 @@ table{ padding:0px; }
 </tr>
 <tr>
 	<td>Account Type</td>
-	<td ><input id="acct_type" name="acct_type" readonly="readonly" value="<%=the_user.getAcct_type()%>" /></td>
+	
+	
+	<td >
+	<select  id="acct_type" name="acct_type" >
+		<%
+		out.println(the_user.getAcctTypeOptions());
+		%>
+	</select>
+	<!--  input id="acct_type" name="acct_type" readonly="readonly" value="<%=the_user.getAcct_type()%>" /  -->
+	
+	</td>
 	
 </tr>
 

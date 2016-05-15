@@ -33,7 +33,6 @@ public class Login extends HttpServlet {
 		if( (request.getParameter("lo")!=null) && (request.getParameter("lo").length()>0 )){
 			the_user.LogOut();
 		}
-		
 		if( (request.getParameter("email")!=null) && (request.getParameter("email").length()>0 )){
 			if( (request.getParameter("password")!=null) && (request.getParameter("password").length()>0 )){
 				if( (request.getParameter("login")!=null) && (request.getParameter("login").length()>0 )){
@@ -41,7 +40,6 @@ public class Login extends HttpServlet {
 				}
 			}
 		}
-		
 		request.getSession().setAttribute("userbean", the_user);
 		if(the_user.isLogged_in()){
 			request.getRequestDispatcher("Admin").forward(request, response);

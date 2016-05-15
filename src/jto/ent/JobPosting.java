@@ -2,7 +2,7 @@ package jto.ent;
 
 public class JobPosting {
 	
-	
+	public JobPosting(){}
 	/*
 	 * 
   jp_id serial PRIMARY KEY NOT NULL,
@@ -23,6 +23,7 @@ public class JobPosting {
 	  private int jp_id;
 	  private int work_type_id;
 	  private String work_type;
+	  private String description;
 	  private float estimated_cost;
 	  private java.util.Date date_posted;
 	  private String special_equipment;
@@ -31,10 +32,10 @@ public class JobPosting {
 	  private int ep_id;
 	  private boolean visible;
 	
-	  
 	  public JobPosting(int jp_id,
 	  int work_type_id,
 	  String work_type,
+	  String description,
 	  float estimated_cost,
 	  java.util.Date date_posted,
 	  String special_equipment,
@@ -46,6 +47,7 @@ public class JobPosting {
 		  this.jp_id = jp_id;
 		  this.work_type_id = work_type_id;
 		  this.work_type = work_type;
+		  this.description = description;
 		  this.estimated_cost = estimated_cost;
 		  this.date_posted = date_posted;
 		  this.special_equipment = special_equipment;
@@ -53,8 +55,7 @@ public class JobPosting {
 		  this.user_id =  user_id;
 		  this.ep_id = ep_id;
 		  this.visible = visible;
-		  
-		  
+		  	  
 	  }
 
 
@@ -62,37 +63,32 @@ public class JobPosting {
 		return jp_id;
 	}
 
-
 	public int getWork_type_id() {
 		return work_type_id;
 	}
-
 
 	public String getWork_type() {
 		return work_type;
 	}
 
-
 	public float getEstimated_cost() {
 		return estimated_cost;
 	}
 
-
+	public String getDescription() {
+		return description;
+	}
 	public java.util.Date getDate_posted() {
 		return date_posted;
 	}
-
 
 	public String getSpecial_equipment() {
 		return special_equipment;
 	}
 
-
 	public int getHow_many_positions() {
 		return how_many_positions;
 	}
-
-
 	public int getUser_id() {
 		return user_id;
 	}
@@ -101,62 +97,42 @@ public class JobPosting {
 	public int getEp_id() {
 		return ep_id;
 	}
-
-
 	public boolean isVisible() {
 		return visible;
 	}
-
-
 	public void setJp_id(int jp_id) {
 		this.jp_id = jp_id;
 	}
-
-
 	public void setWork_type_id(int work_type_id) {
 		this.work_type_id = work_type_id;
 	}
-
-
 	public void setWork_type(String work_type) {
 		this.work_type = work_type;
 	}
-
-
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public void setEstimated_cost(float estimated_cost) {
 		this.estimated_cost = estimated_cost;
 	}
-
-
 	public void setDate_posted(java.util.Date date_posted) {
 		this.date_posted = date_posted;
 	}
-
-
 	public void setSpecial_equipment(String special_equipment) {
 		this.special_equipment = special_equipment;
 	}
-
-
 	public void setHow_many_positions(int how_many_positions) {
 		this.how_many_positions = how_many_positions;
 	}
-
-
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
-
-
 	public void setEp_id(int ep_id) {
 		this.ep_id = ep_id;
 	}
-
-
 	public void setVisible(boolean visible) {
 		this.visible = visible;
-	}
-	  
+	} 
 	public boolean readyToCreate(){
 		boolean is = true;
 		  if(is && work_type_id<1 ){ is = false; System.out.println(" readytocreate FAIL work_type_id");}
@@ -177,5 +153,4 @@ public class JobPosting {
 		}
 		return is;
 	}
-	
 }

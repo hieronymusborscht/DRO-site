@@ -33,6 +33,10 @@ public class NewJobPosting extends HttpServlet {
 		if(job_posting_state==null){job_posting_state = new jto.ctr.JobPostingState(); }
 		
 		
+		
+		
+		
+		request.getSession().setAttribute("poting_state", job_posting_state);
 		request.getSession().setAttribute("userbean", the_user);
 		if(the_user.isLogged_in()){
 			request.getRequestDispatcher("new_job_posting.jsp").forward(request, response);

@@ -192,13 +192,6 @@ public class PostgresConnector {
 		return connection;
 	}
 
-
-	
-
-	
-	
-	
-	
 	
 	public static byte [] ImageToByte(File file) throws FileNotFoundException{
         FileInputStream fis = new FileInputStream(file);

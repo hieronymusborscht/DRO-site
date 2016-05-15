@@ -160,7 +160,7 @@ public class NewUser extends Member{
 			prepStmt.setString(4, pass_a_hash);
 			prepStmt.execute();
 			is=true;
-			connection.commit();
+			//connection.commit();
 			connection.close();
 		}catch(SQLException e){
 			is=false;

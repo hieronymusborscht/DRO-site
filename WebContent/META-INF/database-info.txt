@@ -50,11 +50,11 @@ CREATE TABLE users (
 	)
 
 
-	CREATE TABLE contractor_worktype_rel (
-	cwr_id serial PRIMARY KEY NOT NULL,
-  	cp_id integer not null,
+	CREATE TABLE user_worktype_rel (
+	uwtr_id serial PRIMARY KEY NOT NULL,
+  	user_id integer not null,
  	wt_id integer not null,
- 	unique (cp_id, wt_id)
+ 	unique (user_id, wt_id)
 	)
 
 CREATE TABLE skill_attribute (
@@ -71,22 +71,7 @@ CREATE TABLE Work_type (
     unique (wt_name)
 )
 
-CREATE TABLE Contractor_Profile (
-  cp_id serial PRIMARY KEY NOT NULL,
-  user_id integer not null,
-  work_type_id integer not null,
-  work_type_name  character varying(256) not null default '',
-  description text,
-  photo bytea not null default '', 
-  datecreated date,
-  r_First_name character varying(256) not null default '',
-  r_Last_name character varying(256) not null default '',
-  r_Email character varying(256) not null default '',
-  r_Phone character varying(256) not null default '',
-  r_im_id_A character varying(256) not null default '',
-  visible boolean default 'false',
-  unique (work_type_id,user_id)
-)
+
 
 
 CREATE TABLE wt_sk_rel (
@@ -108,54 +93,13 @@ unique (jp_id,wt_id)
 CREATE TABLE job_bid (
   jb_id serial PRIMARY KEY NOT NULL,
   jp_id integer not null,
-  employer_id integer not null,
-  contrator_id integer not null,
+  user_employer_id integer not null,
+  user_contrator_id integer not null,
   description text,
   price_text character varying(256) not null default '',
   price money not null,
   dateposted date,
   visible boolean,
-  unique (jp_id,contrator_id)
-)
-
-CREATE TABLE Job_posting (
-  jp_id serial PRIMARY KEY NOT NULL,
-  work_type_id integer not null,
-  work_type character varying(256) not null default '',
-  description text,
-  estimated_cost money not null,
-  date_posted date,
-  special_equipent text,
-  how_many_positions integer not null default '0',
-  user_id integer not null,
-  ep_id integer not null,
-  visible boolean default 'false'
-)
-
-
-
-CREATE TABLE Employer_profile (
-  ep_id serial PRIMARY KEY NOT NULL,
-  r_first_name  character varying(256) not null default '',
-  r_last_name  character varying(256) not null default '',
-  r_email character varying(256) not null default '',
-  r_phone character varying(256) not null default '',
-  company_name  character varying(256) not null default '',
-  user_id integer not null,
-  visible boolean default 'false',
-  unique (r_first_name,r_last_name,user_id),
-  unique (company_name,user_id)
-)
-
-
-CREATE TABLE Contract (
-  contract_id serial PRIMARY KEY NOT NULL,
-  job_bid_id  integer not null,
-  employer_id integer not null,
-  contractor_id integer not null,
-  user_id_employer integer not null,
-  user_id_contractor integer not null,
-  description text,
   employer_accepted boolean default 'false',
   contractor_accepted boolean default 'false',
   datecreated date,
@@ -169,6 +113,22 @@ CREATE TABLE Contract (
   completed_contractor boolean default 'false',
   admin_approved boolean default 'false',
   admin_approved_date date
+  unique (jp_id,user_contrator_id)
+  
+)
+
+CREATE TABLE Job_posting (
+  jp_id serial PRIMARY KEY NOT NULL,
+  work_type_id integer not null,
+  work_type character varying(256) not null default '',
+  description text,
+  estimated_cost money not null,
+  date_posted date,
+  special_equipment text,
+  how_many_positions integer not null default '0',
+  user_id integer not null,
+  ep_id integer not null,
+  visible boolean default 'false'
 )
 
 

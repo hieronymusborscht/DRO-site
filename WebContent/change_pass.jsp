@@ -63,7 +63,7 @@ jto.usr.NewUser the_user = (jto.usr.NewUser)request.getSession().getAttribute("u
 <form method="post" action="ChangePass">
 <table>
 <tr>
-<td colspan="2">Select a new password</td><td>&nbsp;</td>
+<td colspan="2">Select a new password</td><td>&nbsp;<a href="Account">cancel</a></td>
 </tr>
 <tr>
 <td>old password</td><td><input type="text" id="old_pass" name="old_pass" value="" /></td><td><span id="old_pass_note">&nbsp;</span></td>

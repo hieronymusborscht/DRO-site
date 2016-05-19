@@ -5,7 +5,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="admin_style.css">
 <%
-rg.obj.ImageLibrary imglib = (rg.obj.ImageLibrary)request.getSession().getAttribute("imagelib");
+jto.obj.ImageLibrary imglib = (jto.obj.ImageLibrary)request.getSession().getAttribute("imagelib");
 int arrSze = imglib.getArraySize();
 
 %>
@@ -15,8 +15,6 @@ int arrSze = imglib.getArraySize();
 </head>
 <body>
 <table>
- 
- 
  
  <tr class="theading">
  <td  style="vertical-align:bottom;" colspan="2">

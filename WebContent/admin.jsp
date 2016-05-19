@@ -23,20 +23,17 @@
 			<a href="PagesManager">pages</a> <img src="images/icons/pages-ffffff.png" width="31" height="26" /><br /><br />
 		-->	
 			<a href="Account">Account</a> <img src="images/icons/user-ffffff.png" width="30" height="26" /><br /><br />
-			<a href="#">Members</a> <img src="images/icons/members-ffffff.png" width="30" height="26" /><br /><br />
-			<a href="#">Ratings</a> <img src="images/icons/ratings-ffffff.png" width="30" height="27" /><br /><br />
-			<% if(the_user.getAcct_type().equals("Contractor")){
-				out.println("<a href=\"DashboardC\">Contractor Dashboard</a> <img src=\"images/icons/dashboard-ffffff.png\" width=\"30\" height=\"25\" /><br /><br />");
-				
-			}else if(the_user.getAcct_type().equals("Employer")){
-				out.println("<a href=\"DashboardE\">Employer Dashboard</a>  <img src=\"images/icons/dashboard-ffffff.png\" width=\"30\" height=\"25\" /><br /><br />");
-				
-			}
-			%>
+			<a href="Members">Members</a> <img src="images/icons/members-ffffff.png" width="30" height="26" /><br /><br />
+			<a href="#">Articles</a> <img src="images/icons/newcontent-ffffff.png"  width="30" height="26" /><br /><br />
+			<a href="#">Listings</a> <img src="images/icons/listing-ffffff.png"  width="30" height="26" /><br /><br />
+			<a href="#">Photos</a>  <img src="images/icons/image-ffffff.png"  width="30" height="26" /><br /><br />
 		<br /><br />
 		</td>
-		<td class="theading" width="80"  >
-		<img src="images/dro-logo-dedede.png" width="130" height="65" />
+		<td class="theading" width="80" style="text-align:center;" >
+		<img src="images/icons/cms-logo-dedede.png" width="130" height="65" />
+		<textarea rows="20" cols="15"  style="background:#ffffff; background-image: url('images/icons/beer-logo.png');  background-repeat: no-repeat;
+   
+    background-position: bottom;" ></textarea>
 		<br /><br />
 		
 		</td>

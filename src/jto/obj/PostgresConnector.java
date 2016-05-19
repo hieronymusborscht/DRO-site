@@ -182,6 +182,8 @@ public class PostgresConnector {
 					"postgres",
 					"Saturn5"
 					);
+					
+					
 		} catch (SQLException e) {
 		
 			e.printStackTrace();
@@ -386,7 +388,7 @@ public class PostgresConnector {
 			ResultSet rs = prepStmt.executeQuery();
 			while(rs.next()){
 				user.setFailed_login(true);
-				System.out.println("record found");
+				//System.out.println("record found");
 				user.setFirst_name(rs.getString("first_name"));
 				user.setLast_name(rs.getString("last_name"));
 				user.setImg_id(rs.getInt("img_id"));
